@@ -1,0 +1,79 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package BaiTap;
+
+/**
+ *
+ * @author wgnam
+ */
+
+interface IEmployee {
+    int calculateSalary();  
+    String getName();       
+}
+
+
+abstract class Employee implements IEmployee {
+    protected String name;         
+    protected int paymentPerHour;  
+    public Employee(String name, int paymentPerHour) {
+        this.name = name;
+        this.paymentPerHour = paymentPerHour;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setPaymentPerHour(int paymentPerHour) {
+        this.paymentPerHour = paymentPerHour;
+    }
+    
+    public int getPaymentPerHour() {
+        return paymentPerHour;
+    }
+}
+
+
+class PartTimeEmployee extends Employee {
+    private int workingHours;  
+
+    public PartTimeEmployee(String name, int paymentPerHour, int workingHours) {
+        super(name, paymentPerHour);
+        this.workingHours = workingHours;
+    }
+    
+    @Override
+    public int calculateSalary() {
+        return paymentPerHour * workingHours;  
+    }
+}
+
+class FullTimeEmployee extends Employee {
+    private static final int FIXED_MONTHLY_SALARY = 3000;  
+    public FullTimeEmployee(String name, int paymentPerHour) {
+        super(name, paymentPerHour);
+    }
+
+    @Override
+    public int calculateSalary() {
+        return FIXED_MONTHLY_SALARY;  
+    }
+}
+
+public class TinhLuong {
+    public static void main(String[] args) {
+        IEmployee partTime = new PartTimeEmployee("Nam", 20, 80); // Tạo nhân viên part-time
+        IEmployee fullTime = new FullTimeEmployee("Quang", 30);     // Tạo nhân viên full-time
+
+        System.out.println(partTime.getName() + " earns: $" + partTime.calculateSalary());
+        System.out.println(fullTime.getName() + " earns: $" + fullTime.calculateSalary());
+    }
+}
+
