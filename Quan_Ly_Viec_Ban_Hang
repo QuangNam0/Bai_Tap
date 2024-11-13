@@ -1,0 +1,126 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package BaiTap;
+
+/**
+ *
+ * @author wgnam
+ */
+import java.util.ArrayList;
+
+class KhachHang {
+    private String diaChi;
+    private int maKhachHang;
+    private String tenKH;
+
+    public KhachHang(String diaChi, int maKhachHang, String tenKH) {
+        this.diaChi = diaChi;
+        this.maKhachHang = maKhachHang;
+        this.tenKH = tenKH;
+    }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+}
+
+
+class MatHang {
+    private float gia;
+    private int matHangID;
+    private int soLuong;
+    private String tenMatHang;
+
+    public MatHang(int matHangID, String tenMatHang, float gia, int soLuong) {
+        this.matHangID = matHangID;
+        this.tenMatHang = tenMatHang;
+        this.gia = gia;
+        this.soLuong = soLuong;
+    }
+
+    public String getTenMatHang() {
+        return tenMatHang;
+    }
+
+    public float getGia() {
+        return gia;
+    }
+}
+
+
+class HoaDon {
+    private int hoaDonID;
+    private KhachHang kh;
+    private String ngayBan;
+    private float tongTien;
+    private ArrayList<MatHangMua> danhSachMatHang = new ArrayList<>();
+
+    public HoaDon(int hoaDonID, KhachHang kh, String ngayBan) {
+        this.hoaDonID = hoaDonID;
+        this.kh = kh;
+        this.ngayBan = ngayBan;
+    }
+
+    public void themMatHang(MatHangMua mhm) {
+        danhSachMatHang.add(mhm);
+        tongTien += mhm.getTongTien();
+    }
+
+    public void inHoaDon() {
+        System.out.println("Hoa Don ID: " + hoaDonID);
+        System.out.println("Khach Hang: " + kh.getTenKH());
+        System.out.println("Ngay Ban: " + ngayBan);
+        System.out.println("Tong Tien: " + tongTien);
+    }
+}
+
+
+class MatHangMua {
+    private HoaDon hd;
+    private MatHang mh;
+    private int soLuong;
+
+    public MatHangMua(HoaDon hd, MatHang mh, int soLuong) {
+        this.hd = hd;
+        this.mh = mh;
+        this.soLuong = soLuong;
+    }
+
+    public MatHang getMatHang() {
+        return mh;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public float getTongTien() {
+        return mh.getGia() * soLuong;
+    }
+}
+
+
+public class Quan_Ly_Viec_Ban_Hang {
+    public static void main(String[] args) {
+        KhachHang kh = new KhachHang("Tay Ho", 1, "Nguyen Van A");
+
+        
+        MatHang mh1 = new MatHang(101, "Product X", 100.0f, 50);
+        MatHang mh2 = new MatHang(102, "Product Y", 200.0f, 30);
+
+        
+        HoaDon hd = new HoaDon(1, kh, "2024-11-12");
+
+        
+        MatHangMua mhm1 = new MatHangMua(hd, mh1, 2);
+        MatHangMua mhm2 = new MatHangMua(hd, mh2, 1);
+        hd.themMatHang(mhm1);
+        hd.themMatHang(mhm2);
+
+        
+        hd.inHoaDon();
+    }
+}
+
